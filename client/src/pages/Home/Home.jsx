@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import styles from './Home.module.sass';
 import SlideBar from '../../components/SlideBar/SlideBar';
@@ -11,10 +11,10 @@ import CONSTANTS from '../../constants';
 const Home = props => {
   const [index, setIndex] = useState(0);
   const [styleName, setStyle] = useState(styles.headline__static);
-  let timeout;
+  const { isFetching } = useSelector((state) => state.userStore);
 
   useEffect(() => {
-    timeout = setInterval(() => {
+    const timeout = setInterval(() => {
       setIndex(index + 1);
       setStyle(styles.headline__isloading);
     }, 3000);
@@ -23,8 +23,6 @@ const Home = props => {
       clearInterval(timeout);
     };
   });
-
-  const { isFetching } = props;
   const text =
     CONSTANTS.HEADER_ANIMATION_TEXT[
       index % CONSTANTS.HEADER_ANIMATION_TEXT.length
@@ -262,9 +260,4 @@ const Home = props => {
   );
 };
 
-const mapStateToProps = state => {
-  const { isFetching } = state.userStore;
-  return { isFetching };
-};
-
-export default connect(mapStateToProps, null)(Home);
+export default Home;
