@@ -9,6 +9,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import carouselConstants from '../../carouselConstants';
 import CONSTANTS from '../../constants';
 import Card from '../../components/Card';
+import ButtonGroup from '../../components/ButtonGroup';
 
 const Home = (props) => {
   const [index, setIndex] = useState(0);
@@ -30,7 +31,7 @@ const Home = (props) => {
       index % CONSTANTS.HEADER_ANIMATION_TEXT.length
     ];
 
-  const showCard = (card) => <Card key={card.alt} card={card} />;
+  const showCard = (card, i) => <Card key={i} card={card} />;
   return (
     <>
       {isFetching ? (
@@ -216,6 +217,9 @@ const Home = (props) => {
                 images={carouselConstants.feedbackSliderImages}
                 carouselType={carouselConstants.FEEDBACK_SLIDER}
               />
+            </div>
+            <div className={styles.whiteCountainer}>
+              <ButtonGroup />
             </div>
           </main>
         </>
